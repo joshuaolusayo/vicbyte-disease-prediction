@@ -1,25 +1,102 @@
-const Result = () => {
+import { ResultType } from "./page";
+
+type Props = {
+  result: ResultType | null;
+};
+
+const Result = ({ result }: Props) => {
+  console.log(result);
+
   return (
     <div className="my-10">
       <div className="max-w-5xl mx-auto">
-        <h3 className="text-2xl font-semibold text-center mb-6">
-          Prediction Result
-        </h3>
-        <p className="leading-relaxed text-lg text-gray-600">
-          At MedPredict, we combine cutting-edge technology with medical
-          expertise to provide you with accurate and reliable disease
-          prediction. Our platform is designed to empower individuals to take
-          control of their health and make informed decisions. Whether
-          you&quot;re a healthcare professional or an individual seeking
-          insights into your health, MedPredict is here to assist you. In a
-          world flooded with information, extracting key insights from lengthy
-          texts can be a time-consuming and challenging task. Our project
-          addresses this issue by offering an advanced automated text
-          summarization tool. Using state-of-the-art Natural Language Processing
-          techniques and Artificial Intelligence algorithms, our solution
-          condenses extensive text documents into concise summaries, preserving
-          the core message while discarding redundant details.
-        </p>
+        <div>
+          <h3 className="text-2xl font-semibold text-center mb-6">
+            Prediction Result
+          </h3>
+          <p className="leading-relaxed text-lg text-gray-600">
+            {result?.prediction === "no_heart_disease"
+              ? "You have heart disease"
+              : "You do not have heart disease"}
+            .{" "}
+            {result?.probability &&
+              `The probability of having is{" "}
+            ${Number.parseFloat(result.probability)?.toFixed(2)}`}
+          </p>
+        </div>
+
+        {result?.prediction !== "no_heart_disease" && (
+          <div className="mt-10 text-gray-600">
+            <h3 className="tex-xl font-semibold text-center mb-4 text-black">
+              Managing Heart Disease: Your Guide to a Healthier Life
+            </h3>
+            <p className="text-lg mb-3">
+              Living with heart disease requires making positive changes to your
+              lifestyle and adopting habits that support your heart health.
+              Here&apos;s what you can do:
+            </p>
+            <ol className="ml-4 list-decimal">
+              <li>Follow Your Doctor&apos;s Recommendations</li>
+              <li>Have Healthy Eating Habits</li>
+              <li>
+                Stay Active: Engage in regular physical activity with your
+                doctor&apos;s approval
+              </li>
+              <li>
+                Manage Stress: Practice stress-relief techniques like deep
+                breathing, meditation, and yoga
+              </li>
+              <li>Monitor Your Heart</li>
+              <li>Quit Smoking</li>
+              <li>Limit Alcohol Intake</li>
+              <li>
+                Build a Support System: Connect with friends, family, or support
+                groups that understand your journey and can offer encouragement
+              </li>
+            </ol>
+            <p className="text-gray-800">
+              Remember, managing heart disease is a journey. By making these
+              positive changes, you&apos;re taking control of your health and
+              reducing the risk of further complications.
+            </p>
+          </div>
+        )}
+
+        {result?.prediction === "no_heart_disease" && (
+          <div className="mt-10 text-gray-600">
+            <h3 className="tex-xl font-semibold text-center mb-4 text-black">
+              Heart-Healthy Living: Preventing Heart Disease
+            </h3>
+            <p className="text-lg mb-3">
+              Congratulations on maintaining a healthy heart! Here are some tips
+              to keep your heart in top shape:
+            </p>
+            <ol className="ml-4 list-decimal">
+              <li>Eat Balanced Diet</li>
+              <li>
+                Stay Active: Engage in regular physical activity with your
+                doctor&apos;s approval
+              </li>
+              <li>
+                Manage Stress: Practice stress-relief techniques like deep
+                breathing, meditation, and yoga
+              </li>
+              <li>Avoid Smoking and Excessive Alcohol</li>
+              <li>Regular Check-ups</li>
+              <li>
+                Maintain a healthy weight through a balanced diet and regular
+                exercise
+              </li>
+              <li>Quality Sleep</li>
+              <li>Educate Yourself</li>
+            </ol>
+            <p className="text-gray-800">
+              Remember, the choices you make today can impact your heart health
+              in the future. By adopting these habits, you&quot;re investing in
+              a healthier and happier life.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,11 +1,12 @@
 "use client";
 
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import ErrorMessage from "./ErrorMessage";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import InputField, { LabelMessage } from "./InputField";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { ResultProp } from "./UploadImage";
 
@@ -24,6 +25,7 @@ const validationSchema = yup.object({
 });
 
 const PredictionForm = ({ changeResult }: ResultProp) => {
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -31,10 +33,41 @@ const PredictionForm = ({ changeResult }: ResultProp) => {
     watch,
   } = useForm({ resolver: yupResolver(validationSchema) });
 
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit = handleSubmit(async (data) => {
     toast.success("Form submitted");
     console.log(data);
-    changeResult("asdfadf");
+    try {
+      setLoading(true);
+      const values = {
+        Age: data.age,
+        ChestPainType: data.chestPainType,
+        RestingBP: data.restingBP,
+        Cholesterol: data.cholesterol,
+        FastingBS: data.fastingBS,
+        RestingECG: data.restingECG,
+        MaxHR: data.maxHR,
+        ExerciseAngina: data.exerciseAngina,
+        Oldpeak: data.oldpeak,
+        ST_Slope: data.stSlope,
+      };
+    //   console.log(values);
+      const request = await axios.post(
+        "https://heart-disease-myfa.onrender.com/predict",
+        { ...values }
+      );
+      if (request.status !== 200) {
+        toast.error("Unable to generate prediction at the moment");
+      }
+      if (request.data?.response) {
+        toast.success("Prediction generated successfully!");
+        changeResult(request.data.response);
+      }
+    } catch (error: any) {
+      toast.error(error?.message ?? "An error occured. Please, try again");
+    } finally {
+      setLoading(false);
+    }
+    // changeResult("asdfadf");
   });
 
   useEffect(() => {

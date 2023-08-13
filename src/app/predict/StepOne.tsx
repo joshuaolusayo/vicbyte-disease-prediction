@@ -8,7 +8,7 @@ type Props = {
 const all_steps = [
   {
     image: "/assets/disease.jpeg",
-    title: "Lung disease",
+    title: "Alzheimer disease",
     id: 1,
   },
   {

@@ -1,16 +1,25 @@
 import Image from "next/image";
 import { ChangeEvent, ChangeEventHandler, useState } from "react";
+import { ResultType } from "./page";
 
 export type ResultProp = {
-  changeResult: (value: string) => void;
+  changeResult: (value: ResultType) => void;
 };
+
 const UploadImage = ({ changeResult }: ResultProp) => {
   const [files, setFiles] = useState<FileList>();
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) setFiles(e.target.files);
     // submit form
-    setTimeout(() => changeResult("adfasd"), 5000);
+    setTimeout(
+      () =>
+        changeResult({
+          prediction: "23sadf asdf ad",
+          probability: "0.003",
+        }),
+      5000
+    );
   };
 
   return (

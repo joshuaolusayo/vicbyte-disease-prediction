@@ -7,10 +7,15 @@ import UploadImage from "./UploadImage";
 import Result from "./Result";
 import PredictionForm from "./PredictionForm";
 
+export type ResultType = {
+  prediction: string;
+  probability: string;
+};
+
 export default function Summarizer() {
-  const [current_step, setCurrentStep] = useState<number>(1);
+  const [current_step, setCurrentStep] = useState<number>(4);
   const [disease_type, setDiseaseType] = useState<string>("");
-  const [result, setResult] = useState<string>("");
+  const [result, setResult] = useState<ResultType | null>(null);
 
   // const handleStepChange = (value: number) => setCurrentStep(value);
   const handleChangeDisease = (value: string) => setDiseaseType(value);
@@ -58,7 +63,7 @@ export default function Summarizer() {
     // }
   };
 
-  const changeResult = (value: string) => {
+  const changeResult = (value: ResultType) => {
     setResult(value);
     handleNext();
   };
@@ -76,7 +81,7 @@ export default function Summarizer() {
           )}
           {current_step === 2 && <UploadImage changeResult={changeResult} />}
           {current_step === 3 && <PredictionForm changeResult={changeResult} />}
-          {current_step === 4 && <Result />}
+          {current_step === 4 && <Result result={result} />}
           <div className="flex justify-center space-x-4">
             {current_step > 1 && current_step <= 4 && (
               <button
