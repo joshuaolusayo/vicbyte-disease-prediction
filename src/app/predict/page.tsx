@@ -1,8 +1,11 @@
 "use client";
 
 import axios from "axios";
+import Image from "next/image";
 import { ChangeEvent, useState } from "react";
 import toast from "react-hot-toast";
+import Steps from "./Steps";
+import StepOne from "./StepOne";
 
 export default function Summarizer() {
   const [text, setText] = useState("");
@@ -39,33 +42,12 @@ export default function Summarizer() {
   };
 
   return (
-    <main className="grid lg:grid-cols-2 gap-y-10 gap-10 summarize-height">
-      <div className="border-2 border-black p-4 rounded-lg h-full flex flex-col justify-between items-stretch">
-        <textarea
-          className="w-full h-full resize-none placeholder:text-gray-600 focus:outline-none overflow-y-scroll"
-          placeholder="Paste/write your topic and then click the Summarize button."
-          name="summarize-text"
-          id="summarize-text"
-          rows={10}
-          onChange={handleChange}
-          value={text}
-        ></textarea>
-        <div className="flex justify-end border-t-2 border-black pt-3">
-          <button
-            className="px-10 py-2 bg-gray-600 hover:bg-black duration-500 text-white rounded"
-            onClick={handleSubmit}
-          >
-            {loading ? "Submitting" : "Submit"}
-          </button>
+    <main className="px-6 py-20">
+      <div className="container mx-auto">
+        <div className="bg-gray-600/10 px-6 py-10 lg:px-10 lg:py-16 rounded-lg max-w-6xl mx-auto">
+          <Steps />
+          <StepOne />
         </div>
-      </div>
-      <div className="border-2 border-black p-4 rounded-lg h-full">
-        {result && (
-          <>
-            <h3 className="font-semibold mb-4">Summary:</h3>
-            {result}
-          </>
-        )}
       </div>
     </main>
   );

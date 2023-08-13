@@ -25,7 +25,3 @@
     height: calc(100vh - 142px);
   }
 }
-
-.summarize-height {
-  height: calc(100vh - 300px);
-}

@@ -18,8 +18,8 @@ const NavBar = () => {
     <>
       <div className="flex space-x-8 justify-center items-center py-6 md:py-8 border-b-2">
         <NavLink name="Homepage" url="/" />
-        <NavLink name="Predict" url="#" />
-        <NavLink name="About" url="#" />
+        <NavLink name="Predict" url="/predict" />
+        <NavLink name="About" url="/about" />
       </div>
     </>
   );
