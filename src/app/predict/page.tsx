@@ -1,57 +1,66 @@
 "use client";
 
-import axios from "axios";
-import Image from "next/image";
-import { ChangeEvent, useState } from "react";
-import toast from "react-hot-toast";
+import { useState } from "react";
 import Steps from "./Steps";
 import StepOne from "./StepOne";
 import UploadImage from "./UploadImage";
 import Result from "./Result";
+import PredictionForm from "./PredictionForm";
 
 export default function Summarizer() {
-  const [text, setText] = useState("");
-  const [result, setResult] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [current_step, setCurrentStep] = useState<number>(3);
+  const [current_step, setCurrentStep] = useState<number>(2);
   const [disease_type, setDiseaseType] = useState<string>("");
+  const [result, setResult] = useState<string>("");
 
-  const handleStepChange = (value: number) => setCurrentStep(value);
+  // const handleStepChange = (value: number) => setCurrentStep(value);
   const handleChangeDisease = (value: string) => setDiseaseType(value);
 
-  const handlePrevious = () =>
-    current_step > 1 ? setCurrentStep((prev_step) => prev_step - 1) : "";
-
-  const handleNext = () =>
-    current_step < 3 ? setCurrentStep((prev_step) => prev_step + 1) : "";
-
-  const handleSubmit = async () => {
-    if (!text.trim()) return;
-
-    try {
-      setLoading(true);
-      const request = await axios.post(
-        "https://summarizer-cd45.onrender.com/summarize",
-        {
-          message: text,
-        }
-      );
-      if (request.status !== 200) {
-        toast.error("Unable to generate response at the moment");
-      }
-      if (request.data?.response) {
-        toast.success("Summary generated successfully!");
-        setResult(request.data.response);
-      }
-    } catch (error: any) {
-      toast.error(error?.message ?? "An error occured. Please, try again");
-    } finally {
-      setLoading(false);
-    }
+  const handlePrevious = () => {
+    if (current_step === 3) setCurrentStep(1);
+    else current_step > 1 ? setCurrentStep((prev_step) => prev_step - 1) : "";
   };
 
-  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setText(e.target.value);
+  const handleNext = () => {
+    if (current_step > 4) return;
+    if (current_step === 1) {
+      if (!disease_type) return;
+      if (disease_type === "Heart disease") setCurrentStep(2);
+      else setCurrentStep(3);
+      return;
+    }
+    if (!result) return;
+    else setCurrentStep(4);
+
+    // current_step < 3 ? setCurrentStep((prev_step) => prev_step + 1) : "";
+  };
+
+  const handleSubmit = async () => {
+    // if (!text.trim()) return;
+    // try {
+    //   setLoading(true);
+    //   const request = await axios.post(
+    //     "https://summarizer-cd45.onrender.com/summarize",
+    //     {
+    //       message: text,
+    //     }
+    //   );
+    //   if (request.status !== 200) {
+    //     toast.error("Unable to generate response at the moment");
+    //   }
+    //   if (request.data?.response) {
+    //     toast.success("Summary generated successfully!");
+    //     setResult(request.data.response);
+    //   }
+    // } catch (error: any) {
+    //   toast.error(error?.message ?? "An error occured. Please, try again");
+    // } finally {
+    //   setLoading(false);
+    // }
+  };
+
+  const changeResult = (value: string) => {
+    setResult(value);
+    handleNext();
   };
 
   return (
@@ -65,10 +74,11 @@ export default function Summarizer() {
               diseaseType={disease_type}
             />
           )}
-          {current_step === 2 && <UploadImage />}
-          {current_step === 3 && <Result />}
+          {current_step === 2 && <UploadImage changeResult={changeResult} />}
+          {current_step === 3 && <PredictionForm changeResult={changeResult} />}
+          {current_step === 4 && <Result />}
           <div className="flex justify-center space-x-4">
-            {current_step > 1 && current_step <= 3 && (
+            {current_step > 1 && current_step <= 4 && (
               <button
                 onClick={handlePrevious}
                 className="bg-transparent border-2 border-black px-12 py-3 text-black hover:bg-black hover:text-white hover:border-white duration-500 text-3xl"
@@ -76,7 +86,7 @@ export default function Summarizer() {
                 Previous
               </button>
             )}
-            {current_step >= 1 && current_step < 3 && (
+            {current_step >= 1 && current_step < 4 && (
               <button
                 onClick={handleNext}
                 className="bg-transparent border-2 border-black px-12 py-3 text-black hover:bg-black hover:text-white hover:border-white duration-500 text-3xl"

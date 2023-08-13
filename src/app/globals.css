@@ -74,3 +74,13 @@
     @apply bg-background text-foreground;
   }
 }
+
+.custom-height {
+  height: calc(100vh - 126px);
+}
+
+@media screen and (min-width: 768px) {
+  .custom-height {
+    height: calc(100vh - 142px);
+  }
+}

@@ -1,13 +1,16 @@
 import Image from "next/image";
 import { ChangeEvent, ChangeEventHandler, useState } from "react";
 
-const UploadImage = () => {
+export type ResultProp = {
+  changeResult: (value: string) => void;
+};
+const UploadImage = ({ changeResult }: ResultProp) => {
   const [files, setFiles] = useState<FileList>();
-
-  //   console.log(files);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) setFiles(e.target.files);
+    // submit form
+    setTimeout(() => changeResult("adfasd"), 5000);
   };
 
   return (

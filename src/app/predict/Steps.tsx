@@ -14,14 +14,16 @@ const Steps = ({ currentStep }: Props) => {
       </div>
       <div
         className={`px-4 py-2 cursor-pointer  ${
-          currentStep === 2 ? "bg-black text-white" : "bg-white text-black"
+          currentStep === 2 || currentStep === 3
+            ? "bg-black text-white"
+            : "bg-white text-black"
         }`}
       >
         Step Two
       </div>
       <div
         className={`px-4 py-2 cursor-pointer rounded-r ${
-          currentStep === 3 ? "bg-black text-white" : "bg-white text-black"
+          currentStep === 4 ? "bg-black text-white" : "bg-white text-black"
         }`}
       >
         Step Three
