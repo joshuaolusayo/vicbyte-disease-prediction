@@ -8,7 +8,7 @@ import Result from "./Result";
 import PredictionForm from "./PredictionForm";
 
 export default function Summarizer() {
-  const [current_step, setCurrentStep] = useState<number>(2);
+  const [current_step, setCurrentStep] = useState<number>(1);
   const [disease_type, setDiseaseType] = useState<string>("");
   const [result, setResult] = useState<string>("");
 
