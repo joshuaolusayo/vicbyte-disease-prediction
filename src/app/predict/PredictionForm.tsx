@@ -24,7 +24,7 @@ const validationSchema = yup.object({
   stSlope: yup.number().oneOf([0, 1, 2]).required("Required"),
 });
 
-const PredictionForm = ({ changeResult }: ResultProp) => {
+const PredictionForm = ({ changeResult, type }: ResultProp) => {
   const [loading, setLoading] = useState(false);
   const {
     register,
@@ -40,6 +40,7 @@ const PredictionForm = ({ changeResult }: ResultProp) => {
       setLoading(true);
       const values = {
         Age: data.age,
+        Sex: data.gender,
         ChestPainType: data.chestPainType,
         RestingBP: data.restingBP,
         Cholesterol: data.cholesterol,
@@ -50,17 +51,23 @@ const PredictionForm = ({ changeResult }: ResultProp) => {
         Oldpeak: data.oldpeak,
         ST_Slope: data.stSlope,
       };
-    //   console.log(values);
+      //   console.log(values);
       const request = await axios.post(
-        "https://heart-disease-myfa.onrender.com/predict",
+        "https://heart-disease-kgay.onrender.com/predict/",
         { ...values }
       );
-      if (request.status !== 200) {
+      const { prediction, probability } = request?.data;
+      console.log({ request });
+      if (request?.status !== 200) {
         toast.error("Unable to generate prediction at the moment");
       }
-      if (request.data?.response) {
-        toast.success("Prediction generated successfully!");
-        changeResult(request.data.response);
+      if (prediction && probability) {
+        // toast.success("Prediction generated successfully!");
+        changeResult({
+          type,
+          prediction,
+          probability,
+        });
       }
     } catch (error: any) {
       toast.error(error?.message ?? "An error occured. Please, try again");

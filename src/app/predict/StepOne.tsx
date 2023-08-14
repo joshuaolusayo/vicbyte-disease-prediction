@@ -18,7 +18,7 @@ const all_steps = [
   },
   {
     image: "/assets/disease.jpeg",
-    title: "Cancer disease",
+    title: "Diabetic Retinopathy ",
     id: 3,
   },
 ];

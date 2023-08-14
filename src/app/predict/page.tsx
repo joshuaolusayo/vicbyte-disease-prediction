@@ -8,20 +8,20 @@ import Result from "./Result";
 import PredictionForm from "./PredictionForm";
 
 export type ResultType = {
-  prediction: string;
-  probability: string;
+  prediction?: string;
+  probability?: string;
+  type: string;
 };
 
 export default function Summarizer() {
-  const [current_step, setCurrentStep] = useState<number>(4);
+  const [current_step, setCurrentStep] = useState<number>(1);
   const [disease_type, setDiseaseType] = useState<string>("");
   const [result, setResult] = useState<ResultType | null>(null);
 
-  // const handleStepChange = (value: number) => setCurrentStep(value);
   const handleChangeDisease = (value: string) => setDiseaseType(value);
 
   const handlePrevious = () => {
-    if (current_step === 3) setCurrentStep(1);
+    if (current_step === 3 || current_step === 4) setCurrentStep(1);
     else current_step > 1 ? setCurrentStep((prev_step) => prev_step - 1) : "";
   };
 
@@ -29,38 +29,12 @@ export default function Summarizer() {
     if (current_step > 4) return;
     if (current_step === 1) {
       if (!disease_type) return;
-      if (disease_type === "Heart disease") setCurrentStep(2);
-      else setCurrentStep(3);
+      if (disease_type === "Heart disease") setCurrentStep(3);
+      else setCurrentStep(2);
       return;
     }
     if (!result) return;
     else setCurrentStep(4);
-
-    // current_step < 3 ? setCurrentStep((prev_step) => prev_step + 1) : "";
-  };
-
-  const handleSubmit = async () => {
-    // if (!text.trim()) return;
-    // try {
-    //   setLoading(true);
-    //   const request = await axios.post(
-    //     "https://summarizer-cd45.onrender.com/summarize",
-    //     {
-    //       message: text,
-    //     }
-    //   );
-    //   if (request.status !== 200) {
-    //     toast.error("Unable to generate response at the moment");
-    //   }
-    //   if (request.data?.response) {
-    //     toast.success("Summary generated successfully!");
-    //     setResult(request.data.response);
-    //   }
-    // } catch (error: any) {
-    //   toast.error(error?.message ?? "An error occured. Please, try again");
-    // } finally {
-    //   setLoading(false);
-    // }
   };
 
   const changeResult = (value: ResultType) => {
@@ -79,8 +53,12 @@ export default function Summarizer() {
               diseaseType={disease_type}
             />
           )}
-          {current_step === 2 && <UploadImage changeResult={changeResult} />}
-          {current_step === 3 && <PredictionForm changeResult={changeResult} />}
+          {current_step === 2 && (
+            <UploadImage changeResult={changeResult} type={disease_type} />
+          )}
+          {current_step === 3 && (
+            <PredictionForm changeResult={changeResult} type={disease_type} />
+          )}
           {current_step === 4 && <Result result={result} />}
           <div className="flex justify-center space-x-4">
             {current_step > 1 && current_step <= 4 && (
