@@ -34,7 +34,8 @@ const PredictionForm = ({ changeResult, type }: ResultProp) => {
   } = useForm({ resolver: yupResolver(validationSchema) });
 
   const onSubmit = handleSubmit(async (data) => {
-    toast.success("Form submitted");
+    // toast.success("Form submitted");
+
     console.log(data);
     try {
       setLoading(true);
@@ -52,13 +53,13 @@ const PredictionForm = ({ changeResult, type }: ResultProp) => {
         ST_Slope: data.stSlope,
       };
       //   console.log(values);
-      const request = await axios.post(
+      const result = await axios.post(
         "https://heart-disease-kgay.onrender.com/predict/",
         { ...values }
       );
-      const { prediction, probability } = request?.data;
-      console.log({ request });
-      if (request?.status !== 200) {
+      const { prediction, probability, predicted_label } = result?.data;
+      //   console.log({ result });
+      if (result?.status !== 200) {
         toast.error("Unable to generate prediction at the moment");
       }
       if (prediction && probability) {
@@ -67,6 +68,14 @@ const PredictionForm = ({ changeResult, type }: ResultProp) => {
           type,
           prediction,
           probability,
+        });
+        return;
+      }
+
+      if (predicted_label) {
+        changeResult({
+          type,
+          prediction: predicted_label,
         });
       }
     } catch (error: any) {
@@ -245,7 +254,7 @@ const PredictionForm = ({ changeResult, type }: ResultProp) => {
               className="py-3 px-6 border-2 border-gray-600 bg-gray-600 text-white hover:bg-black duration-500"
               type="submit"
             >
-              Submit
+              {loading ? "Submitting" : "Submit"}
             </button>
           </div>
         </div>

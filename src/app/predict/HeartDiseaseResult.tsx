@@ -7,17 +7,16 @@ type Props = {
 const HeartDiseaseResult = ({ result }: Props) => {
   return (
     <>
-      {result?.type === "Heart disease" && (
-        <p className="leading-relaxed text-lg text-gray-600 text-center mb-4">
-          {result?.prediction === "no_heart_disease"
-            ? "You have heart disease"
-            : "You do not have heart disease"}
-          .{" "}
-          {result?.probability &&
-            `The probability of having is
+      <p className="leading-relaxed text-lg text-gray-600 text-center mb-4">
+        {result?.prediction !== "no_heart_disease"
+          ? "You have heart disease"
+          : "You do not have heart disease"}
+        .{" "}
+        {result?.probability &&
+          `The probability of having is
             ${Number.parseFloat(result.probability)?.toFixed(2)}`}
-        </p>
-      )}
+      </p>
+
       {result?.prediction !== "no_heart_disease" ? (
         <div className="mt-10 text-gray-600">
           <h3 className="tex-xl font-semibold text-center mb-4 text-black">

@@ -19,15 +19,15 @@ const Result = ({ result }: Props) => {
           </h3>
         </div>
 
-        {result?.type === "Heart disease" && (
+        {result?.type?.trim() === "Heart disease" && (
           <HeartDiseaseResult result={result} />
         )}
 
-        {result?.type === "Alzheimer disease" && (
+        {result?.type?.trim() === "Alzheimer disease" && (
           <AlzheimerResult result={result} />
         )}
 
-        {result?.type === "Diabetic Retinopathy" && (
+        {result?.type?.trim() === "Diabetic Retinopathy" && (
           <RetinoResult result={result} />
         )}
       </div>

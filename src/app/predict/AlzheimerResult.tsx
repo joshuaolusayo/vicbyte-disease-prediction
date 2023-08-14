@@ -16,7 +16,7 @@ const AlzheimerResult = ({ result }: Props) => {
           : prediction === "NonDemented"
           ? "You are not demented"
           : prediction === "VeryMildDemented"
-          ? "You are very dememted"
+          ? "You are very mild demented"
           : ""}
         .{" "}
       </p>

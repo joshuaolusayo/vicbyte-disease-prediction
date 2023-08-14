@@ -22,8 +22,8 @@ const UploadImage = ({ changeResult, type }: ResultProp) => {
       ? "https://retinopathy-prediction.onrender.com/predict/"
       : "https://alzheimer-predictor.onrender.com/predict/";
 
-  const mockResponse =
-    type === "Alzheimer disease" ? { predicted_label: "VeryMildDemented" } : {};
+  //   const mockResponse =
+  //     type === "Alzheimer disease" ? { predicted_label: "VeryMildDemented" } : {};
 
   const handleSubmit = async () => {
     if (!files?.length) return;
@@ -41,7 +41,7 @@ const UploadImage = ({ changeResult, type }: ResultProp) => {
           },
         }
       );
-      console.log({ result });
+      //   console.log({ result });
       if (result?.data) {
         changeResult({
           type,
@@ -50,8 +50,8 @@ const UploadImage = ({ changeResult, type }: ResultProp) => {
       }
     } catch (error: any) {
       toast.error(error?.message || "An error occured");
-      console.log(error);
-      console.log(error?.response);
+      //   console.log(error);
+      //   console.log(error?.response);
     } finally {
       setLoading(false);
     }

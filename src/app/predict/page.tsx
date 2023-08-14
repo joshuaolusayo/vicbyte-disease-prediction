@@ -60,7 +60,7 @@ export default function Summarizer() {
             <PredictionForm changeResult={changeResult} type={disease_type} />
           )}
           {current_step === 4 && <Result result={result} />}
-          <div className="flex justify-center space-x-4">
+          <div className="flex flex-col sm:flex-row justify-center items-center spacy-y-4 sm:space-y-0 sm:space-x-4">
             {current_step > 1 && current_step <= 4 && (
               <button
                 onClick={handlePrevious}
