@@ -1,14 +1,19 @@
 export default function About() {
   return (
-    <main className="h-full flex flex-col justify-between">
+    <main className="h-full flex flex-col justify-between container mx-auto pt-16 px-6">
       <div className="grid gap-y-10">
         <div>
           <h2 className="text-xl font-semibold mb-3 font-tilt-prism">
             About this project
           </h2>
           <p>
-            This is a final year project carried out by{" "}
-            <span className="font-semibold">JAMIU, Ismail Ayodeji</span> as
+            This is a final year project{" "}
+            <span className="font-semibold">
+              A predictive model for selected disease using neural network
+              approach
+            </span>{" "}
+            carried out by{" "}
+            <span className="font-semibold">OLUFEMI, Victor Ayodeji</span> as
             partial fulfillment for the award of Bachelor of Science in Computer
             Science, University of Ilorin, Nigeria.
           </p>
@@ -24,11 +29,11 @@ export default function About() {
           </p>
         </div>
       </div>
-      <div className="bg-black text-white py-10 text-center -m-6">
+      <div className="text-center mb-16">
         <a
           href="https://github.com/joshuaolusayo"
           target="_blank"
-          className="font-tilt-prism text-[5vw]"
+          className="font-tektur text-[8vw] md:text-[6vw]"
         >
           Stay in touch
         </a>

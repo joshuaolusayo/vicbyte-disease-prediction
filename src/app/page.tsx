@@ -42,7 +42,7 @@ export default function Home() {
       <div className="bg-black px-6 py-20 md:py-24 lg:py-32 grid gap-y-8 text-gray-200">
         <div className="container mx-auto">
           <div className="max-w-2xl">
-            <h2 className="font-semibold mb-10 font-tektur text-6xl text-white">
+            <h2 className="font-semibold mb-10 font-tektur text-5xl md:text-6xl text-white">
               Discover the Future of Healthcare: Disease Prediction
             </h2>
             <Link
