@@ -8,8 +8,6 @@ type Props = {
 };
 
 const Result = ({ result }: Props) => {
-  console.log(result);
-
   return (
     <div className="my-10">
       <div className="max-w-5xl mx-auto">

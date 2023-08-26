@@ -22,9 +22,6 @@ const UploadImage = ({ changeResult, type }: ResultProp) => {
       ? "https://retinopathy-prediction.onrender.com/predict/"
       : "https://alzheimer-predictor.onrender.com/predict/";
 
-  //   const mockResponse =
-  //     type === "Alzheimer disease" ? { predicted_label: "VeryMildDemented" } : {};
-
   const handleSubmit = async () => {
     if (!files?.length) return;
 
@@ -41,7 +38,16 @@ const UploadImage = ({ changeResult, type }: ResultProp) => {
           },
         }
       );
-      //   console.log({ result });
+      // console.log({ result });
+      if (
+        result?.data?.predicted_label
+          ?.toLowerCase()
+          .startsWith("please upload a valid")
+      ) {
+        toast.error(result?.data?.predicted_label);
+        return;
+      }
+
       if (result?.data) {
         changeResult({
           type,

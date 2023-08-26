@@ -1,11 +1,10 @@
 import NavBar from "@/components/navbar";
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter, Outfit, Tektur } from "next/font/google";
+import { Outfit, Tektur } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import Footer from "@/components/Footer";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 
 const tektur = Tektur({
