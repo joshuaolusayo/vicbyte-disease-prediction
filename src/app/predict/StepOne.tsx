@@ -17,7 +17,7 @@ const all_steps = [
     id: 2,
   },
   {
-    image: "/assets/13.jpeg",
+    image: "/assets/13-min.jpeg",
     title: "Diabetic Retinopathy ",
     id: 3,
   },
